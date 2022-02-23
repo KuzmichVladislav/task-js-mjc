@@ -9,7 +9,7 @@
  *      86400 -> 02.06.2020
  */
 function secondsToDate(seconds) {
-    const D = new Date(2020, 0, 2, -21, 0, 0, 0);
+    const D = new Date("2020-06-01T00:00:00.000Z");
     D.setSeconds(D.getSeconds() + seconds);
     return D;
 }
@@ -98,6 +98,7 @@ function redundant(str) {
     function newFunction(str1) {
         return str1;
     }
+
     return newFunction(str)
 }
 
@@ -108,7 +109,7 @@ function redundant(str) {
  * @return {number}
  */
 function towerHanoi(disks) {
-    //TODO
+    return Math.pow(2, disks) - 1;
 }
 
 /**
@@ -135,21 +136,14 @@ function matrixMultiplication(matrix1, matrix2) {
     return resultMatrix;
 }
 
-module.exports = {
-    secondsToDate,
-    toBase2Converter,
-    substringOccurrencesCounter,
-    repeatingLitters,
-    redundant,
-    matrixMultiplication
-};
 
 /**
  * Create a gather function that accepts a string argument and returns another function.
  * The function calls should support continued chaining until order is called.
  * order should accept a number as an argument and return another function.
  * The function calls should support continued chaining until get is called.
- * get should return all the arguments provided to the gather functions as a string in the order specified in the order functions.
+ * get should return all the arguments provided to the gather functions as a string in the order
+ * specified in the order functions.
  *
  * @param {string} str
  * @return {string}
@@ -159,6 +153,25 @@ module.exports = {
  *      gather("a")("b")("c").order(2)(1)(0).get() ➞ "cba"
  *      gather("e")("l")("o")("l")("!")("h").order(5)(0)(1)(3)(2)(4).get()  ➞ "hello"
  */
-function gather(str) {
-    //TODO
+function gather(...str) {
+    function order(...matrix1) {
+        let resultString = "";
+        for (const matrixElement of matrix1) {
+            resultString = resultString + str[matrixElement];
+        }
+        return resultString
+    }
+
+    return order;
 }
+
+module.exports = {
+    secondsToDate,
+    toBase2Converter,
+    substringOccurrencesCounter,
+    repeatingLitters,
+    redundant,
+    matrixMultiplication,
+    towerHanoi,
+    gather
+};
